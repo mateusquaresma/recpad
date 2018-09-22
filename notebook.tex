@@ -1,0 +1,707 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{analise\_por\_grupos}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Agrupamento dos exemplos}\label{agrupamento-dos-exemplos}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{import} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{stats} \PY{k}{as} \PY{n+nn}{stats}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data/2000\PYZhy{}2010/dengue\PYZus{}2001\PYZus{}dataset.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                         \PY{n}{sep} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{,}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{encoding}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cp1252}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{dtype} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{unicode}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{label\PYZus{}column\PYZus{}name} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CON\PYZus{}CLASSI}\PY{l+s+s1}{\PYZsq{}}
+        \PY{n}{pos\PYZus{}column\PYZus{}name} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{POSITIVOS}\PY{l+s+s1}{\PYZsq{}}
+        \PY{n}{neg\PYZus{}column\PYZus{}name} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NEGATIVOS}\PY{l+s+s1}{\PYZsq{}}
+\end{Verbatim}
+
+
+    Definição da função principal de processamento
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{k}{def} \PY{n+nf}{process\PYZus{}data}\PY{p}{(}\PY{n}{sample\PYZus{}df}\PY{p}{,} \PY{n}{ref\PYZus{}column\PYZus{}name}\PY{p}{,} \PY{n}{label\PYZus{}column\PYZus{}name}\PY{p}{,} \PY{p}{)}\PY{p}{:}
+            \PY{n}{df\PYZus{}positive} \PY{o}{=} \PY{n}{sample\PYZus{}df}\PY{p}{[}\PY{n}{sample\PYZus{}df}\PY{p}{[}\PY{n}{label\PYZus{}column\PYZus{}name}\PY{p}{]}\PY{o}{.}\PY{n}{isin}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{3}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{4}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{]}
+            \PY{n}{df\PYZus{}negative} \PY{o}{=} \PY{n}{sample\PYZus{}df}\PY{p}{[}\PY{n}{sample\PYZus{}df}\PY{p}{[}\PY{n}{label\PYZus{}column\PYZus{}name}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{5}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+            \PY{n}{positive\PYZus{}count} \PY{o}{=} \PY{n}{df\PYZus{}positive}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{n}{ref\PYZus{}column\PYZus{}name}\PY{p}{]}\PY{p}{)}\PY{p}{[}\PY{n}{ref\PYZus{}column\PYZus{}name}\PY{p}{]}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}
+            \PY{n}{positive\PYZus{}count} \PY{o}{=} \PY{n}{positive\PYZus{}count}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{pos\PYZus{}column\PYZus{}name}\PY{p}{)}
+            \PY{n}{negative\PYZus{}count} \PY{o}{=} \PY{n}{df\PYZus{}negative}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{n}{ref\PYZus{}column\PYZus{}name}\PY{p}{]}\PY{p}{)}\PY{p}{[}\PY{n}{ref\PYZus{}column\PYZus{}name}\PY{p}{]}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}
+            \PY{n}{negative\PYZus{}count} \PY{o}{=} \PY{n}{negative\PYZus{}count}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{neg\PYZus{}column\PYZus{}name}\PY{p}{)}
+            \PY{n}{df\PYZus{}counts} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{[}\PY{n}{positive\PYZus{}count}\PY{p}{,} \PY{n}{negative\PYZus{}count}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{T}
+            \PY{n}{posneg\PYZus{}sum} \PY{o}{=} \PY{n}{df\PYZus{}counts}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}
+            \PY{n}{group\PYZus{}sum} \PY{o}{=} \PY{n}{df\PYZus{}counts}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{)}
+            \PY{n}{df\PYZus{}counts}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TOTAL}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{posneg\PYZus{}sum}
+            \PY{n}{df\PYZus{}counts}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{ POS}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{positive\PYZus{}count}\PY{o}{.}\PY{n}{div}\PY{p}{(}\PY{n}{posneg\PYZus{}sum}\PY{p}{)}
+            \PY{n}{df\PYZus{}counts}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{ NEG}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{negative\PYZus{}count}\PY{o}{.}\PY{n}{div}\PY{p}{(}\PY{n}{posneg\PYZus{}sum}\PY{p}{)}
+            \PY{n}{df\PYZus{}counts}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{ TOTAL\PYZus{}POS}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{positive\PYZus{}count}\PY{o}{.}\PY{n}{div}\PY{p}{(}\PY{n}{group\PYZus{}sum}\PY{p}{[}\PY{n}{pos\PYZus{}column\PYZus{}name}\PY{p}{]}\PY{p}{)}
+            \PY{n}{df\PYZus{}counts}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{ TOTAL\PYZus{}NEG}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{negative\PYZus{}count}\PY{o}{.}\PY{n}{div}\PY{p}{(}\PY{n}{group\PYZus{}sum}\PY{p}{[}\PY{n}{neg\PYZus{}column\PYZus{}name}\PY{p}{]}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{}     df\PYZus{}counts[\PYZsq{}\PYZpc{} P\PYZus{}TOTAL\PYZsq{}] = positive\PYZus{}count.div(group\PYZus{}sum.sum())}
+        \PY{c+c1}{\PYZsh{}     df\PYZus{}counts[\PYZsq{}\PYZpc{} N\PYZus{}TOTAL\PYZsq{}] = negative\PYZus{}count.div(group\PYZus{}sum.sum())}
+            \PY{k}{return} \PY{n}{df\PYZus{}counts}
+\end{Verbatim}
+
+
+    \#\# Agrupamento dos exemplos por grau de escolaridade
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{ref\PYZus{}column\PYZus{}name} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CS\PYZus{}ESCOLAR}\PY{l+s+s1}{\PYZsq{}}
+        \PY{n}{sample\PYZus{}df} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{p}{[}\PY{n}{ref\PYZus{}column\PYZus{}name}\PY{p}{,} \PY{n}{label\PYZus{}column\PYZus{}name}\PY{p}{]}\PY{p}{]}
+        \PY{n}{df\PYZus{}counts} \PY{o}{=} \PY{n}{process\PYZus{}data}\PY{p}{(}\PY{n}{sample\PYZus{}df}\PY{p}{,} \PY{n}{ref\PYZus{}column\PYZus{}name}\PY{p}{,} \PY{n}{label\PYZus{}column\PYZus{}name}\PY{p}{)}
+        \PY{n}{df\PYZus{}counts}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}5}]:}             POSITIVOS  NEGATIVOS   TOTAL     \% POS     \% NEG  \% TOTAL\_POS  \textbackslash{}
+        CS\_ESCOLAR                                                                  
+        1               15606       5699   21305  0.732504  0.267496     0.063221   
+        2                2224       1440    3664  0.606987  0.393013     0.009010   
+        3               95355      39023  134378  0.709603  0.290397     0.386289   
+        4               42472      16421   58893  0.721172  0.278828     0.172057   
+        5               13541       5293   18834  0.718966  0.281034     0.054855   
+        6               15039       7349   22388  0.671744  0.328256     0.060924   
+        9               62612      16433   79045  0.792106  0.207894     0.253645   
+        
+                    \% TOTAL\_NEG  
+        CS\_ESCOLAR               
+        1              0.062177  
+        2              0.015711  
+        3              0.425746  
+        4              0.179155  
+        5              0.057747  
+        6              0.080178  
+        9              0.179286  
+\end{Verbatim}
+            
+    \subsection{Agrupamento dos exemplos por
+idade}\label{agrupamento-dos-exemplos-por-idade}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}56}]:} \PY{k}{def} \PY{n+nf}{parse\PYZus{}age}\PY{p}{(}\PY{n}{value}\PY{p}{)}\PY{p}{:}
+             \PY{n}{result} \PY{o}{=} \PY{l+m+mi}{0}
+             \PY{n}{nvalue} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{0}\PY{l+s+s1}{\PYZsq{}}
+             
+             \PY{k}{if} \PY{n}{value} \PY{o}{==} \PY{n}{np}\PY{o}{.}\PY{n}{nan}\PY{p}{:}
+                 \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{nan}
+                 
+             \PY{k}{try}\PY{p}{:}
+                 \PY{k}{if} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{A}\PY{l+s+s1}{\PYZsq{}} \PY{o+ow}{in} \PY{n}{value}\PY{p}{:}
+                     \PY{n}{n} \PY{o}{=} \PY{n+nb}{float}\PY{p}{(}\PY{n}{value}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{A}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+                     \PY{k}{if} \PY{n}{n} \PY{o}{\PYZlt{}} \PY{l+m+mi}{10}\PY{p}{:}
+                         \PY{n}{result} \PY{o}{=} \PY{l+m+mi}{10}
+                     \PY{k}{elif} \PY{n}{n} \PY{o}{\PYZlt{}} \PY{l+m+mi}{20}\PY{p}{:}
+                         \PY{n}{result} \PY{o}{=} \PY{l+m+mi}{20}
+                     \PY{k}{elif} \PY{n}{n} \PY{o}{\PYZlt{}} \PY{l+m+mi}{30}\PY{p}{:}
+                         \PY{n}{result} \PY{o}{=} \PY{l+m+mi}{30}
+                     \PY{k}{elif} \PY{n}{n} \PY{o}{\PYZlt{}} \PY{l+m+mi}{40}\PY{p}{:}
+                         \PY{n}{result} \PY{o}{=} \PY{l+m+mi}{40}
+                     \PY{k}{elif} \PY{n}{n} \PY{o}{\PYZlt{}} \PY{l+m+mi}{50}\PY{p}{:}
+                         \PY{n}{result} \PY{o}{=} \PY{l+m+mi}{50}
+                     \PY{k}{elif} \PY{n}{n} \PY{o}{\PYZlt{}} \PY{l+m+mi}{60}\PY{p}{:}
+                         \PY{n}{result} \PY{o}{=} \PY{l+m+mi}{60}
+                     \PY{k}{else}\PY{p}{:}
+                         \PY{n}{result} \PY{o}{=} \PY{l+m+mi}{61}                
+                 \PY{k}{elif} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{M}\PY{l+s+s1}{\PYZsq{}} \PY{o+ow}{in} \PY{n}{nvalue}\PY{p}{:}    
+                     \PY{n}{result} \PY{o}{=} \PY{l+m+mi}{10}
+                 \PY{k}{elif} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{D}\PY{l+s+s1}{\PYZsq{}} \PY{o+ow}{in} \PY{n}{nvalue}\PY{p}{:}    
+                     \PY{n}{result} \PY{o}{=} \PY{l+m+mi}{10}
+                 
+                 \PY{k}{return} \PY{n}{result}
+             \PY{k}{except}\PY{p}{:}
+                 \PY{k}{return} \PY{n}{result}
+\end{Verbatim}
+
+
+    É necessário agrupar as idades em faixas para melhorar o entendimento
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}58}]:} \PY{n}{ref\PYZus{}column\PYZus{}name} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NU\PYZus{}IDADE}\PY{l+s+s1}{\PYZsq{}}
+         \PY{n}{sample\PYZus{}df} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{p}{[}\PY{n}{ref\PYZus{}column\PYZus{}name}\PY{p}{,} \PY{n}{label\PYZus{}column\PYZus{}name}\PY{p}{]}\PY{p}{]}
+         \PY{n}{sample\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NU\PYZus{}IDADE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{to\PYZus{}numeric}\PY{p}{(}\PY{n}{sample\PYZus{}df}\PY{p}{[}\PY{n}{ref\PYZus{}column\PYZus{}name}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n}{parse\PYZus{}age}\PY{p}{)}\PY{p}{)}
+         \PY{n}{df\PYZus{}counts} \PY{o}{=} \PY{n}{process\PYZus{}data}\PY{p}{(}\PY{n}{sample\PYZus{}df}\PY{p}{,} \PY{n}{ref\PYZus{}column\PYZus{}name}\PY{p}{,} \PY{n}{label\PYZus{}column\PYZus{}name}\PY{p}{)}
+         \PY{n}{df\PYZus{}counts}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}58}]:}           POSITIVOS  NEGATIVOS  TOTAL     \% POS     \% NEG  \% TOTAL\_POS  \textbackslash{}
+         NU\_IDADE                                                                 
+         0              3536       1878   5414  0.653122  0.346878     0.012337   
+         10            18002       8244  26246  0.685895  0.314105     0.062807   
+         20            48855      17986  66841  0.730914  0.269086     0.170450   
+         30            64174      23315  87489  0.733509  0.266491     0.223897   
+         40            58395      20499  78894  0.740170  0.259830     0.203735   
+         50            44228      14588  58816  0.751972  0.248028     0.154307   
+         60            27296       8468  35764  0.763226  0.236774     0.095233   
+         61            22137       6606  28743  0.770170  0.229830     0.077234   
+         
+                   \% TOTAL\_NEG  
+         NU\_IDADE               
+         0            0.018487  
+         10           0.081155  
+         20           0.177055  
+         30           0.229514  
+         40           0.201794  
+         50           0.143605  
+         60           0.083360  
+         61           0.065030  
+\end{Verbatim}
+            
+    Pelo visto pessoas entre 20 e 40 anos são as mais afetadas
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}46}]:} \PY{c+c1}{\PYZsh{} \PYZus{}0\PYZus{}10  = df\PYZus{}counts.loc[0:9.99999, :].sum(axis = 0)}
+         \PY{c+c1}{\PYZsh{} \PYZus{}10\PYZus{}20 = df\PYZus{}counts.loc[10:19.99999, :].sum(axis = 0)}
+         \PY{c+c1}{\PYZsh{} \PYZus{}20\PYZus{}30 = df\PYZus{}counts.loc[20:29.99999, :].sum(axis = 0)}
+         \PY{c+c1}{\PYZsh{} \PYZus{}30\PYZus{}40 = df\PYZus{}counts.loc[30:39.99999, :].sum(axis = 0)}
+         \PY{c+c1}{\PYZsh{} \PYZus{}40\PYZus{}50 = df\PYZus{}counts.loc[40:49.99999, :].sum(axis = 0)}
+         \PY{c+c1}{\PYZsh{} \PYZus{}50\PYZus{}60 = df\PYZus{}counts.loc[50:59.99999, :].sum(axis = 0)}
+         \PY{c+c1}{\PYZsh{} \PYZus{}60\PYZus{}p  = df\PYZus{}counts.loc[60:, :].sum(axis = 0)}
+         
+         \PY{c+c1}{\PYZsh{} new\PYZus{}df = pd.DataFrame([\PYZus{}0\PYZus{}10, \PYZus{}10\PYZus{}20, \PYZus{}20\PYZus{}30, \PYZus{}30\PYZus{}40, \PYZus{}40\PYZus{}50, \PYZus{}50\PYZus{}60, \PYZus{}60\PYZus{}p])}
+         \PY{c+c1}{\PYZsh{} new\PYZus{}df}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}46}]:}    POSITIVOS  NEGATIVOS    TOTAL      \% POS      \% NEG  \% TOTAL\_POS  \textbackslash{}
+         0    21538.0    10122.0  31660.0  46.604858  28.395142     0.075144   
+         1    48855.0    17986.0  66841.0   7.305971   2.694029     0.170450   
+         2    64174.0    23315.0  87489.0   7.336508   2.663492     0.223897   
+         3    58395.0    20499.0  78894.0   7.402713   2.597287     0.203735   
+         4    44228.0    14588.0  58816.0   7.524869   2.475131     0.154307   
+         5    27296.0     8468.0  35764.0   7.638002   2.361998     0.095233   
+         6    22137.0     6606.0  28743.0  35.466599  12.533401     0.077234   
+         
+            \% TOTAL\_NEG  
+         0     0.099642  
+         1     0.177055  
+         2     0.229514  
+         3     0.201794  
+         4     0.143605  
+         5     0.083360  
+         6     0.065030  
+\end{Verbatim}
+            
+    \subsection{Agrupamento dos exemplos por
+sexo}\label{agrupamento-dos-exemplos-por-sexo}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{ref\PYZus{}column\PYZus{}name} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CS\PYZus{}SEXO}\PY{l+s+s1}{\PYZsq{}}
+        \PY{n}{sample\PYZus{}df} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{p}{[}\PY{n}{ref\PYZus{}column\PYZus{}name}\PY{p}{,} \PY{n}{label\PYZus{}column\PYZus{}name}\PY{p}{]}\PY{p}{]}
+        \PY{n}{df\PYZus{}counts} \PY{o}{=} \PY{n}{process\PYZus{}data}\PY{p}{(}\PY{n}{sample\PYZus{}df}\PY{p}{,} \PY{n}{ref\PYZus{}column\PYZus{}name}\PY{p}{,} \PY{n}{label\PYZus{}column\PYZus{}name}\PY{p}{)}
+        \PY{n}{df\PYZus{}counts}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}8}]:}          POSITIVOS  NEGATIVOS   TOTAL     \% POS     \% NEG  \% TOTAL\_POS  \textbackslash{}
+        CS\_SEXO                                                                  
+        F           164666      55957  220623  0.746368  0.253632     0.574506   
+        I              619        246     865  0.715607  0.284393     0.002160   
+        M           121337      45381  166718  0.727798  0.272202     0.423335   
+        
+                 \% TOTAL\_NEG  
+        CS\_SEXO               
+        F           0.550845  
+        I           0.002422  
+        M           0.446734  
+\end{Verbatim}
+            
+    \subsection{Agrupamento dos exemplos por
+etnia}\label{agrupamento-dos-exemplos-por-etnia}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{ref\PYZus{}column\PYZus{}name} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CS\PYZus{}RACA}\PY{l+s+s1}{\PYZsq{}}
+        \PY{n}{sample\PYZus{}df} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{p}{[}\PY{n}{ref\PYZus{}column\PYZus{}name}\PY{p}{,} \PY{n}{label\PYZus{}column\PYZus{}name}\PY{p}{]}\PY{p}{]}
+        \PY{n}{df\PYZus{}counts} \PY{o}{=} \PY{n}{process\PYZus{}data}\PY{p}{(}\PY{n}{sample\PYZus{}df}\PY{p}{,} \PY{n}{ref\PYZus{}column\PYZus{}name}\PY{p}{,} \PY{n}{label\PYZus{}column\PYZus{}name}\PY{p}{)}
+        \PY{n}{df\PYZus{}counts}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}9}]:}          POSITIVOS  NEGATIVOS  TOTAL     \% POS     \% NEG  \% TOTAL\_POS  \textbackslash{}
+        CS\_RACA                                                                 
+        1             6828       4398  11226  0.608231  0.391769     0.318233   
+        2              917        541   1458  0.628944  0.371056     0.042739   
+        3              313        181    494  0.633603  0.366397     0.014588   
+        4             8494       3721  12215  0.695375  0.304625     0.395880   
+        5               41         38     79  0.518987  0.481013     0.001911   
+        9             4863       1505   6368  0.763662  0.236338     0.226650   
+        
+                 \% TOTAL\_NEG  
+        CS\_RACA               
+        1           0.423536  
+        2           0.052099  
+        3           0.017431  
+        4           0.358340  
+        5           0.003659  
+        9           0.144935  
+\end{Verbatim}
+            
+    \subsection{Agrupamento dos exemplos por zona de
+residência}\label{agrupamento-dos-exemplos-por-zona-de-residuxeancia}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{ref\PYZus{}column\PYZus{}name} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CS\PYZus{}ZONA}\PY{l+s+s1}{\PYZsq{}}
+         \PY{n}{sample\PYZus{}df} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{p}{[}\PY{n}{ref\PYZus{}column\PYZus{}name}\PY{p}{,} \PY{n}{label\PYZus{}column\PYZus{}name}\PY{p}{]}\PY{p}{]}
+         \PY{n}{df\PYZus{}counts} \PY{o}{=} \PY{n}{process\PYZus{}data}\PY{p}{(}\PY{n}{sample\PYZus{}df}\PY{p}{,} \PY{n}{ref\PYZus{}column\PYZus{}name}\PY{p}{,} \PY{n}{label\PYZus{}column\PYZus{}name}\PY{p}{)}
+         \PY{n}{df\PYZus{}counts}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}10}]:}          POSITIVOS  NEGATIVOS   TOTAL     \% POS     \% NEG  \% TOTAL\_POS  \textbackslash{}
+         CS\_ZONA                                                                  
+         1           264644      90953  355597  0.744225  0.255775     0.944766   
+         2            15401       7529   22930  0.671653  0.328347     0.054981   
+         3               32         38      70  0.457143  0.542857     0.000114   
+         9               39         23      62  0.629032  0.370968     0.000139   
+         
+                  \% TOTAL\_NEG  
+         CS\_ZONA               
+         1           0.922978  
+         2           0.076403  
+         3           0.000386  
+         9           0.000233  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{stats}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{n}{df\PYZus{}counts}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TOTAL}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}11}]:} DescribeResult(nobs=4, minmax=(62, 355597), mean=94664.75, variance=30376453494.25, skewness=1.141664802365721, kurtosis=-0.6772758388124673)
+\end{Verbatim}
+            
+    Não é possível afirmar que a zona de residência dos habitantes tenha de
+fato alguma correlação com a incidência da dengue, porém nota-se uma
+proporção ligeiramente maior de incidência na zona urbana (0.74 vs 0.67)
+
+    \subsection{Agrupamento dos exemplos pela semana dos primeiros
+sintomas}\label{agrupamento-dos-exemplos-pela-semana-dos-primeiros-sintomas}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{ref\PYZus{}column\PYZus{}name} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SEM\PYZus{}PRI}\PY{l+s+s1}{\PYZsq{}}
+         \PY{n}{sample\PYZus{}df} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{p}{[}\PY{n}{ref\PYZus{}column\PYZus{}name}\PY{p}{,} \PY{n}{label\PYZus{}column\PYZus{}name}\PY{p}{]}\PY{p}{]}
+         \PY{n}{df\PYZus{}counts} \PY{o}{=} \PY{n}{process\PYZus{}data}\PY{p}{(}\PY{n}{sample\PYZus{}df}\PY{p}{,} \PY{n}{ref\PYZus{}column\PYZus{}name}\PY{p}{,} \PY{n}{label\PYZus{}column\PYZus{}name}\PY{p}{)}
+         \PY{n}{df\PYZus{}counts} \PY{o}{=} \PY{n}{df\PYZus{}counts}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{df\PYZus{}counts}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TOTAL}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZgt{}} \PY{l+m+mi}{20}\PY{p}{,} \PY{p}{:}\PY{p}{]}
+         \PY{n}{df\PYZus{}counts}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}12}]:}         POSITIVOS  NEGATIVOS    TOTAL     \% POS     \% NEG  \% TOTAL\_POS  \textbackslash{}
+         102001     9317.0     3171.0  12488.0  0.746076  0.253924     0.032506   
+         112001     9959.0     3589.0  13548.0  0.735090  0.264910     0.034746   
+         12001      3715.0     1436.0   5151.0  0.721219  0.278781     0.012961   
+         12002        23.0        8.0     31.0  0.741935  0.258065     0.000080   
+         122001    10701.0     4174.0  14875.0  0.719395  0.280605     0.037335   
+         132001    10865.0     4016.0  14881.0  0.730126  0.269874     0.037907   
+         142001    12868.0     4831.0  17699.0  0.727047  0.272953     0.044895   
+         152001    12144.0     4534.0  16678.0  0.728145  0.271855     0.042369   
+         162001    14740.0     5031.0  19771.0  0.745536  0.254464     0.051426   
+         172001    15142.0     4480.0  19622.0  0.771685  0.228315     0.052829   
+         182001    16759.0     4303.0  21062.0  0.795698  0.204302     0.058471   
+         192001    15573.0     3702.0  19275.0  0.807938  0.192062     0.054333   
+         202001    11581.0     3092.0  14673.0  0.789273  0.210727     0.040405   
+         212001     9515.0     3041.0  12556.0  0.757805  0.242195     0.033197   
+         22001      4428.0     1562.0   5990.0  0.739232  0.260768     0.015449   
+         222001     8409.0     2611.0  11020.0  0.763067  0.236933     0.029338   
+         232001     8003.0     2245.0  10248.0  0.780933  0.219067     0.027922   
+         242001     5798.0     1738.0   7536.0  0.769374  0.230626     0.020229   
+         252001     4836.0     1511.0   6347.0  0.761935  0.238065     0.016872   
+         262001     3714.0     1412.0   5126.0  0.724542  0.275458     0.012958   
+         272001     3172.0     1284.0   4456.0  0.711849  0.288151     0.011067   
+         282001     2782.0     1145.0   3927.0  0.708429  0.291571     0.009706   
+         292001     2447.0     1101.0   3548.0  0.689684  0.310316     0.008537   
+         302001     2213.0      892.0   3105.0  0.712721  0.287279     0.007721   
+         312001     2041.0      907.0   2948.0  0.692334  0.307666     0.007121   
+         32001      6059.0     2169.0   8228.0  0.736388  0.263612     0.021139   
+         322001     1799.0      856.0   2655.0  0.677589  0.322411     0.006277   
+         332001     1677.0      861.0   2538.0  0.660757  0.339243     0.005851   
+         342001     1592.0      880.0   2472.0  0.644013  0.355987     0.005554   
+         352001     1331.0      885.0   2216.0  0.600632  0.399368     0.004644   
+         362001     1088.0      799.0   1887.0  0.576577  0.423423     0.003796   
+         372001     1198.0      826.0   2024.0  0.591897  0.408103     0.004180   
+         382001     1116.0      816.0   1932.0  0.577640  0.422360     0.003894   
+         392001     1070.0      737.0   1807.0  0.592142  0.407858     0.003733   
+         402001     1366.0      816.0   2182.0  0.626031  0.373969     0.004766   
+         412001     1239.0      759.0   1998.0  0.620120  0.379880     0.004323   
+         42001      7054.0     2160.0   9214.0  0.765574  0.234426     0.024611   
+         422001     1430.0      922.0   2352.0  0.607993  0.392007     0.004989   
+         432001     1358.0     1045.0   2403.0  0.565127  0.434873     0.004738   
+         442001     1338.0      853.0   2191.0  0.610680  0.389320     0.004668   
+         452001     1742.0      967.0   2709.0  0.643042  0.356958     0.006078   
+         462001     1543.0      857.0   2400.0  0.642917  0.357083     0.005383   
+         472000       21.0        6.0     27.0  0.777778  0.222222     0.000073   
+         472001     2157.0     1097.0   3254.0  0.662876  0.337124     0.007526   
+         482001     2167.0     1154.0   3321.0  0.652514  0.347486     0.007560   
+         492000       21.0       14.0     35.0  0.600000  0.400000     0.000073   
+         492001     2112.0     1106.0   3218.0  0.656308  0.343692     0.007369   
+         502000       52.0       31.0     83.0  0.626506  0.373494     0.000181   
+         502001     2289.0     1004.0   3293.0  0.695111  0.304889     0.007986   
+         512000      124.0       56.0    180.0  0.688889  0.311111     0.000433   
+         512001     1820.0      692.0   2512.0  0.724522  0.275478     0.006350   
+         52001      7800.0     2440.0  10240.0  0.761719  0.238281     0.027213   
+         522000      486.0      129.0    615.0  0.790244  0.209756     0.001696   
+         522001     1167.0      381.0   1548.0  0.753876  0.246124     0.004072   
+         62001      9000.0     2747.0  11747.0  0.766153  0.233847     0.031400   
+         72001      8061.0     2832.0  10893.0  0.740017  0.259983     0.028124   
+         82001      6400.0     2151.0   8551.0  0.748450  0.251550     0.022329   
+         92001      7999.0     2571.0  10570.0  0.756764  0.243236     0.027908   
+         
+                 \% TOTAL\_NEG  
+         102001     0.031216  
+         112001     0.035330  
+         12001      0.014136  
+         12002      0.000079  
+         122001     0.041089  
+         132001     0.039534  
+         142001     0.047557  
+         152001     0.044633  
+         162001     0.049526  
+         172001     0.044101  
+         182001     0.042359  
+         192001     0.036443  
+         202001     0.030438  
+         212001     0.029936  
+         22001      0.015376  
+         222001     0.025703  
+         232001     0.022100  
+         242001     0.017109  
+         252001     0.014874  
+         262001     0.013900  
+         272001     0.012640  
+         282001     0.011271  
+         292001     0.010838  
+         302001     0.008781  
+         312001     0.008929  
+         32001      0.021352  
+         322001     0.008427  
+         332001     0.008476  
+         342001     0.008663  
+         352001     0.008712  
+         362001     0.007865  
+         372001     0.008131  
+         382001     0.008033  
+         392001     0.007255  
+         402001     0.008033  
+         412001     0.007472  
+         42001      0.021263  
+         422001     0.009076  
+         432001     0.010287  
+         442001     0.008397  
+         452001     0.009519  
+         462001     0.008436  
+         472000     0.000059  
+         472001     0.010799  
+         482001     0.011360  
+         492000     0.000138  
+         492001     0.010888  
+         502000     0.000305  
+         502001     0.009883  
+         512000     0.000551  
+         512001     0.006812  
+         52001      0.024020  
+         522000     0.001270  
+         522001     0.003751  
+         62001      0.027042  
+         72001      0.027878  
+         82001      0.021175  
+         92001      0.025309  
+\end{Verbatim}
+            
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
